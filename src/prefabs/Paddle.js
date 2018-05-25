@@ -12,7 +12,10 @@ class Paddle extends Phaser.Sprite {
 	}
 
 	update () {
-		// console.log(this.game.input.x)
+		if(this.game.input.x === 0){
+			return
+		}
+		
 		this.x = this.game.input.x
 
 		if(this.x < this.width / 2){

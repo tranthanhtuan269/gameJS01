@@ -1,4 +1,5 @@
 export default {
 	score: 0,
-	timecount: 60
+	level: 1,
+	lives: 3
 }
