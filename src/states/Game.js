@@ -17,12 +17,17 @@ export default class extends Phaser.State {
 
   create() {
     this.setUpBackground()
+    this.setUpCenterObject()
+    // this.setUpLemons()
+    // this.setUpFunguses()
     this.setUpToco()
-    this.setUpText()
     this.setUpCherry()
-    this.setUpLemons()
-    this.setUpFunguses()
+    this.setUpText()
     this.setUpTime()
+  }
+
+  setUpCenterObject() {
+    this.centerObj = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY)
   }
 
   setUpTime() {
@@ -33,8 +38,17 @@ export default class extends Phaser.State {
     if(this.game.global.times == 0){
       this.endGame()
     }
+    this.game.global.timeSetup++;
     this.game.global.times--;
-    this.timesText.text = `Times: ${ this.game.global.times }`  
+    this.timesText.text = `Times: ${ this.game.global.times }`
+
+    if(this.game.global.timeSetup % 9 == 0){
+      this.setUpCherry()
+    }else if(this.game.global.timeSetup % 9 == 3){
+      this.setUpLemons()
+    }else if(this.game.global.timeSetup % 9 == 6){
+      this.setUpFunguses()
+    }
   }
 
   endGame() {
@@ -67,131 +81,130 @@ export default class extends Phaser.State {
 
   generateFunguses(fungusesGroup) {
     let rows        = 1
-    let columns     = 8
-    let xRow        = 80
-    let xOffset     = 120
-    let yOffset     = 80
-    let randomStart = 80
-    let fungus
-
-    for (let y = 0; y < rows; y++){
-      for (var x = 0; x < columns; x++) {
-        // y = 0, 1
-        // x = 0, 1
-        fungus = new Fungus(
-          this.game,
-          x * xOffset + xRow,
-          y * yOffset + this.game.rnd.integerInRange(randomStart, 600 + randomStart)
-        )
-
-        fungus.events.onDragStop.add(function(currentSprite){
-          this.stopDrag(currentSprite, this.toco);
-        }, this)
-
-        fungusesGroup.add(fungus)
-      }
-    }
-
-    let fungusesGroupWidth = ((xOffset * columns) - (xOffset - fungus.width)) / 2
-
-    fungusesGroup.position.setTo(
-      this.game.world.centerX - fungusesGroupWidth,
-      this.game.world.centerY - 250
-    )
-  }
-
-  generateLemons(lemonsGroup) {
-    let rows        = 1
-    let columns     = 8
+    let columns     = 12
     let xRow        = 40
     let xOffset     = 120
     let yOffset     = 80
     let randomStart = 80
+
+    let cX = this.game.world.width / 2
+    let cY = this.game.world.height / 2
+
+    let radius = cX / 3
+
+    let fungus
+
+    for (var x = 0; x < columns; x++) {
+      fungus = new Fungus(
+        this.game,
+        Math.sin(x * 30 / 180 * Math.PI) * 2 * radius + this.game.world.centerX,
+        Math.cos(x * 30 / 180 * Math.PI) * 2 * radius + this.game.world.centerY
+      )
+
+      fungus.events.onDragStop.add(function(currentSprite){
+        this.stopDrag(currentSprite, this.toco);
+      }, this)
+
+      fungusesGroup.add(fungus)
+    }
+  }
+
+  generateLemons(lemonsGroup) {
+    let rows        = 1
+    let columns     = 12
+    let xRow        = 40
+    let xOffset     = 120
+    let yOffset     = 80
+    let randomStart = 80
+
+    let cX = this.game.world.width / 2
+    let cY = this.game.world.height / 2
+
+    let radius = cX / 3
+
     let lemon
 
-    for (let y = 0; y < rows; y++){
-      for (var x = 0; x < columns; x++) {
-        // y = 0, 1
-        // x = 0, 1
-        lemon = new Lemon(
-          this.game,
-          x * xOffset + 40,
-          y * yOffset + this.game.rnd.integerInRange(randomStart, 600 + randomStart)
-        )
+    for (var x = 0; x < columns; x++) {
+      lemon = new Lemon(
+        this.game,
+        Math.sin(x * 30 / 180 * Math.PI) * 2 * radius + this.game.world.centerX,
+        Math.cos(x * 30 / 180 * Math.PI) * 2 * radius + this.game.world.centerY
+      )
 
-        lemon.events.onDragStop.add(function(currentSprite){
-          this.stopDrag(currentSprite, this.toco);
-        }, this)
+      lemon.events.onDragStop.add(function(currentSprite){
+        this.stopDrag(currentSprite, this.toco);
+      }, this)
 
-        lemonsGroup.add(lemon)
-      }
+      lemonsGroup.add(lemon)
     }
-
-    let lemonsGroupWidth = ((xOffset * columns) - (xOffset - lemon.width)) / 2
-
-    lemonsGroup.position.setTo(
-      this.game.world.centerX - lemonsGroupWidth,
-      this.game.world.centerY - 250
-    )
   }
 
   generateCherrys(cherrysGroup) {
-    let rows = 1
-    let columns = 8
-    let xOffset = 120
-    let yOffset = 80
+    let rows        = 1
+    let columns     = 12
+    let xRow        = 40
+    let xOffset     = 120
+    let yOffset     = 80
     let randomStart = 80
+
+    let cX = this.game.world.width / 2
+    let cY = this.game.world.height / 2
+
+    let radius = cX / 3
+
     let cherry
 
-    for (let y = 0; y < rows; y++){
-      for (var x = 0; x < columns; x++) {
-        // y = 0, 1
-        // x = 0, 1
-        cherry = new Cherry(
-          this.game,
-          x * xOffset,
-          y * yOffset + this.game.rnd.integerInRange(randomStart, 600 + randomStart)
-        )
+    for (var x = 0; x < columns; x++) {
+      cherry = new Cherry(
+        this.game,
+        Math.sin(x * 30 / 180 * Math.PI) * 2 * radius + this.game.world.centerX,
+        Math.cos(x * 30 / 180 * Math.PI) * 2 * radius + this.game.world.centerY
+      )
 
-        cherry.events.onDragStop.add(function(currentSprite){
-          this.stopDrag(currentSprite, this.toco);
-        }, this)
+      cherry.events.onDragStop.add(function(currentSprite){
+        console.log('run')
+        this.stopDrag(currentSprite, this.toco);
+      }, this)
 
-        cherrysGroup.add(cherry)
-      }
+      cherrysGroup.add(cherry)
     }
-
-    let cherrysGroupWidth = ((xOffset * columns) - (xOffset - cherry.width)) / 2
-
-    cherrysGroup.position.setTo(
-      this.game.world.centerX - cherrysGroupWidth,
-      this.game.world.centerY - 250
-    )
   }
 
   stopDrag(obj, toco) {
-    obj.y = this.game.rnd.integerInRange(600, 1200)
-    this.game.physics.arcade.collide(
+    console.log('run2')
+    // this.game.physics.arcade.collide(
+    //   obj,
+    //   toco,
+    //   this.checkHitToco,
+    //   null,
+    //   this
+    // )
+    if(!this.game.physics.arcade.collide(
       obj,
       toco,
       this.checkHitToco,
       null,
       this
-    )
+    )){
+      console.log(obj)
+    }
   }
 
   checkHitToco (obj, toco) {
     console.log('drag to toco')
     switch(obj.key){
       case 'lemon':
+        obj.kill()
         this.game.global.lemon++
         this.lemonText.text = `${this.game.global.lemon}`
         break
       case 'cherry':
+        obj.kill()
         this.game.global.cherry++
         this.cherryText.text = `${this.game.global.cherry}`
         break
       case 'fungus':
+        obj.kill()
         this.game.global.fungus++
         this.fungusText.text = `${this.game.global.fungus}`
         break
@@ -203,8 +216,8 @@ export default class extends Phaser.State {
   setUpToco() {
     this.toco = new Toco(
       this.game,
-      this.game.world.width / 2 - 70,
-      this.game.world.height / 2 - 100
+      this.game.world.width / 2,
+      this.game.world.height / 2
     )
 
     this.game.add.existing(this.toco)
@@ -239,9 +252,9 @@ export default class extends Phaser.State {
     this.lemonText = this.createText(xPossition , yPossition + marginTopText, 'left', `${ this.game.global.lemon }`)
     this.fungusText = this.createText(xPossition, yPossition + 2 * marginTopText, 'left', `${ this.game.global.fungus }`)
 
-    this.game.add.sprite(xPossition + marginLeftText, yPossition, 'cherry')
-    this.game.add.sprite(xPossition + marginLeftText, yPossition + marginTopText, 'lemon')
-    this.game.add.sprite(xPossition + marginLeftText, yPossition + 2 * marginTopText, 'fungus')
+    this.game.add.sprite(xPossition + marginLeftText, yPossition, 'cherry_small')
+    this.game.add.sprite(xPossition + marginLeftText, yPossition + marginTopText, 'lemon_small')
+    this.game.add.sprite(xPossition + marginLeftText, yPossition + 2 * marginTopText, 'fungus_small')
 
     this.game.add.sprite(40, 20, 'toco_small')
     this.tocoText = this.createText(20, 20, 'left', `${ this.game.global.toco }`)
@@ -263,6 +276,28 @@ export default class extends Phaser.State {
 
   update () {
     this.checkCreateToco()
+    this.moveToCenter()
+  }
+
+  moveToCenter() {
+    let seft = this;
+    if(this.lemons != null){
+      this.lemons.forEach(function(member, param1) {
+        seft.game.physics.arcade.moveToObject(member, seft.centerObj, 50)
+      })
+    }
+
+    if(this.cherrys != null){
+      this.cherrys.forEach(function(member, param1) {
+        seft.game.physics.arcade.moveToObject(member, seft.centerObj, 50)
+      })
+    }
+
+    if(this.funguses != null){
+      this.funguses.forEach(function(member, param1) {
+        seft.game.physics.arcade.moveToObject(member, seft.centerObj, 50)
+      })
+    }
   }
 
   checkCreateToco() {

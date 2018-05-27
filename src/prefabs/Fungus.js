@@ -9,15 +9,28 @@ class Fungus extends Phaser.Sprite {
 		this.inputEnabled = true
 		this.input.enableDrag(true)
 		this.input.useHandCursor = true
+		this.alpha = 0
 	}
 
 	update () {		
-		this.y -= 1
+		let minScale = 0.1
+		let subScale = 0.003
+		// this.y -= 1
 		this.angle += 1
-		let randomStart = 600;
+
+		if(this.alpha < 1){
+			this.alpha += 0.02
+		}
+
+		if(this.scale.x > minScale){
+			this.scale.x -= subScale
+			this.scale.y -= subScale
+		}else{
+			this.kill();
+		}
 
 		if(this.y < -100){
-			this.y += this.game.rnd.integerInRange(randomStart, 600 + randomStart)
+			this.y += this.game.rnd.integerInRange(600, 1200)
 		}
 	}
 }

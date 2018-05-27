@@ -5,6 +5,7 @@ class Toco extends Phaser.Sprite {
 		super(game, x, y, 'toco')
 
 		this.game.physics.arcade.enableBody(this)
+		this.anchor.setTo(0.5, 0.5)
 
 		this.body.immovable = true
 	}

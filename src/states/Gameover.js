@@ -12,7 +12,7 @@ export default class extends Phaser.State {
     let text = this.add.text(
         this.game.width * 0.5,
         this.game.height * 0.5,
-        `Game over\n\nYou reched level ${this.game.global.level} with score ${this.game.global.score}`,
+        `Bạn đã tạo được ${this.game.global.toco} cốc Toco Toco Sakura Ngân Nhĩ`,
         {
           font: '24px Arial',
           fill: '#000',
@@ -22,7 +22,7 @@ export default class extends Phaser.State {
 
     text.anchor.set(0.5)
 
-    this.input.onDown.add(this.restartGame, this)
+    // this.input.onDown.add(this.restartGame, this)
   }
 
   restartGame() {
