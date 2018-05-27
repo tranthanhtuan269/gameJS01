@@ -1,5 +1,10 @@
 export default {
-	score: 0,
-	level: 1,
-	lives: 1
+	times	: 30,
+	lemon	: 0,
+	cherry	: 0,
+	fungus	: 0,
+	toco	: 0,
+
+
+	radius	: 400
 }

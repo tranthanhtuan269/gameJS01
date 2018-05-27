@@ -27,12 +27,22 @@ export default class extends Phaser.State {
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
 
-    this.load.spritesheet('loginBtn', './assets/images/button-bg.png', 100, 49);
-    this.load.spritesheet('guideBtn', './assets/images/button-bg.png', 100, 49);
-    this.load.spritesheet('giftBtn', './assets/images/button-bg.png', 100, 49);
+    this.load.spritesheet('loginBtn', './assets/images/button-bg.png', 100, 49)
+    this.load.spritesheet('guideBtn', './assets/images/button-bg.png', 100, 49)
+    this.load.spritesheet('giftBtn', './assets/images/button-bg.png', 100, 49)
+    this.load.spritesheet('playBtn', './assets/images/button-bg.png', 100, 49)
     this.load.image('backgroundPopup', './assets/images/backgroundPopup.jpg')
     this.load.image('closeBtn', './assets/images/close-btn.png', 50, 50)
 
+    this.load.image('tocobg', './assets/images/tocobg.jpg')
+    this.load.image('toco', './assets/images/toco.png')
+    this.load.image('toco_small', './assets/images/toco_small.png')
+    this.load.image('cherry', './assets/images/cherry.png')
+    this.load.image('cherry_small', './assets/images/cherry_small.png')
+    this.load.image('fungus', './assets/images/fungus.png')
+    this.load.image('fungus_small', './assets/images/fungus_small.png')
+    this.load.image('lemon', './assets/images/lemon.png')
+    this.load.image('lemon_small', './assets/images/lemon_small.png')
     this.load.image('brick', './assets/images/brick.png')
     this.load.image('paddle', './assets/images/49-Breakout-Tiles.png')
     this.load.image('ball', './assets/images/58-Breakout-Tiles.png')

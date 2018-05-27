@@ -83,18 +83,27 @@ export default class extends Phaser.State {
 
     this.buttonGift.anchor.setTo(0.5, 0.5);
     // this.buttonGift.input.useHandCursor = true;
+
+    this.buttonPlay = this.game.add.button(
+                      this.game.width / 2 - buttonWidth, 
+                      this.game.height / 2, 
+                      'playBtn', 
+                      this.playClick, 
+                      this, 
+                      2, 1, 0);
+
+    this.buttonPlay.anchor.setTo(0.5, 0.5);
+    this.buttonPlay.input.useHandCursor = true;
+  }
+
+  playClick() {
+    console.log('playClick')
+    this.game.state.start('Game')
   }
 
   loginClick() {
     console.log('loginClick')
     $('#login-modal').modal('show')
-    // if ((this.tween !== null && this.tween.isRunning) || this.popup.y === 500)
-    // {
-    //     return;
-    // }
-    
-    // //  Create a tween that will pop-open the window, but only if it's not already tweening or open
-    // this.tween = this.game.add.tween(this.popup).to( { y: 500 }, 1000, Phaser.Easing.Linear.Out, true);
   }
 
   guideClick() {
